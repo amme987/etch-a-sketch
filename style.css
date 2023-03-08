@@ -1,11 +1,13 @@
 .container {
-  display: grid;
+  display: inline-grid;
   /* grid-template-columns: repeat(16, auto);
   grid-template-rows: repeat(16, auto); */
   text-align: center;
+  height: 97vh;
+  aspect-ratio: 1;
 }
 
-.container div{
+.container div {
   border-style: solid;
   aspect-ratio: 1;
 }
