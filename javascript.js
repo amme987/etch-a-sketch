@@ -1,5 +1,6 @@
 const container = document.querySelector(".container");
 const button = document.querySelector("button");
+const checkbox = document.querySelector("#grid");
 let divs;
 let number = 16;
 
@@ -13,8 +14,8 @@ button.addEventListener("click", () => {
   if (number <= 0) {
     number = 16;
   }
-  deleteGrid(divs);
-  createGrid(number);
+  deleteGrid();
+  createGrid();
 });
 
 // Generate grid with specified number of rows and columns
@@ -28,7 +29,7 @@ function createGrid() {
     i++;
   }
   container.style.cssText = `grid-template-rows: repeat(${number}, auto); grid-template-columns: repeat(${number}, auto);`;
-  divs = Array.from(document.querySelectorAll(".container div"));
+  divs = document.querySelectorAll(".container div");
 
   // Change color of divs
   divs.forEach((div) =>
@@ -38,11 +39,23 @@ function createGrid() {
   );
 }
 
-function deleteGrid(divs) {
+function deleteGrid() {
   divs.forEach((div) => {
     container.removeChild(div);
   });
 }
 
-createGrid();
+// Checkbox to add or remove grid lines based on user preference
+checkbox.addEventListener("click", () => {
+  if (checkbox.checked) {
+    divs.forEach((div) => {
+      div.style.border = "solid thin";
+    });
+  } else {
+    divs.forEach((div) => {
+      div.style.border = "none";
+    });
+  }
+});
 
+createGrid();
