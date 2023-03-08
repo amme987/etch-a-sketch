@@ -4,17 +4,17 @@ let divs;
 let number = 16;
 
 button.addEventListener("click", () => {
+  // Set to 16x16 grid when user hits "cancel" or enters number equal to or less than 0
   do {
     number = Number(
       prompt("Enter number of squares per side for new grid", 16)
     );
   } while (number > 100);
-
-  //   console.log(number);
+  if (number <= 0) {
+    number = 16;
+  }
   deleteGrid(divs);
   createGrid(number);
-
-  //   return number;
 });
 
 // Generate grid with specified number of rows and columns
@@ -23,7 +23,7 @@ function createGrid() {
   let max = Math.pow(number, 2);
   while (i <= max) {
     const div = document.createElement("div");
-    div.textContent = i;
+    // div.textContent = i;
     container.appendChild(div);
     i++;
   }
@@ -46,10 +46,3 @@ function deleteGrid(divs) {
 
 createGrid();
 
-// function changeColor(divs) {
-//   divs.forEach((div) =>
-//     div.addEventListener("mouseover", () => {
-//       div.style.backgroundColor = "aqua";
-//     })
-//   );
-// }
