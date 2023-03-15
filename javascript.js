@@ -4,6 +4,8 @@ const checkbox = document.querySelector("#grid");
 let divs;
 let number = 16;
 
+createGrid();
+
 button.addEventListener("click", () => {
   // Set to 16x16 grid when user hits "cancel" or enters number equal to or less than 0
   do {
@@ -24,19 +26,31 @@ function createGrid() {
   let max = Math.pow(number, 2);
   while (i <= max) {
     const div = document.createElement("div");
-    // div.textContent = i;
     container.appendChild(div);
     i++;
   }
   container.style.cssText = `grid-template-rows: repeat(${number}, auto); grid-template-columns: repeat(${number}, auto);`;
   divs = document.querySelectorAll(".container div");
-
   checkBox();
 
-  // Change color of divs
+  changeColor(divs);
+}
+
+// Change color and brightness of divs
+function changeColor() {
   divs.forEach((div) =>
     div.addEventListener("mouseover", () => {
-      div.style.backgroundColor = `rgb(${randomColor()} ${randomColor()} ${randomColor()})`;
+      if (div.style.filter === "") {
+        div.style.backgroundColor = `rgb(${randomColor()} ${randomColor()} ${randomColor()})`;
+        div.style.filter = "brightness(1.0)";
+      } else {
+        let bright = Number(div.style.filter.slice(11, -1)).toFixed(1);
+        if (bright == 0) {
+          return;
+        }
+        div.style.backgroundColor = `rgb(${randomColor()} ${randomColor()} ${randomColor()})`;
+        div.style.filter = `brightness(${bright - 0.1})`;
+      }
     })
   );
 }
@@ -66,8 +80,3 @@ function checkBox() {
     });
   }
 }
-
-createGrid();
-
-// TODO: Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change
-//  it to a completely random RGB value.Then try having each pass just add another 10 % of black to it so that only after 10 passes is the square completely black.
