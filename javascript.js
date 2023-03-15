@@ -31,6 +31,8 @@ function createGrid() {
   container.style.cssText = `grid-template-rows: repeat(${number}, auto); grid-template-columns: repeat(${number}, auto);`;
   divs = document.querySelectorAll(".container div");
 
+  checkBox();
+
   // Change color of divs
   divs.forEach((div) =>
     div.addEventListener("mouseover", () => {
@@ -39,6 +41,7 @@ function createGrid() {
   );
 }
 
+// Generate random number from 0-255 for RGB values
 function randomColor() {
   return Math.floor(Math.random() * 256);
 }
@@ -49,18 +52,20 @@ function deleteGrid() {
   });
 }
 
-// Checkbox to add or remove grid lines based on user preference
-checkbox.addEventListener("click", () => {
+checkbox.addEventListener("click", checkBox);
+
+// Add or remove grid lines based on user preference
+function checkBox() {
   if (checkbox.checked) {
     divs.forEach((div) => {
       div.style.border = "solid thin";
     });
-  } else {
+  } else if (!checkbox.checked) {
     divs.forEach((div) => {
       div.style.border = "none";
     });
   }
-});
+}
 
 createGrid();
 
